@@ -3,8 +3,10 @@ package com.example.galeria;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -37,4 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected (@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.opCamera:
+                dispatchTakePictureIntent();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
