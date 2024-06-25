@@ -13,7 +13,8 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter {
     MainActivity mainActivity;
-    List<String> photos;
+    List<String> photos;//lista de fotos salvas
+
     public MainAdapter(MainActivity mainActivity, List<String> photos) {
         this.mainActivity = mainActivity;
         this.photos = photos;
@@ -27,14 +28,20 @@ public class MainAdapter extends RecyclerView.Adapter {
         return new MyViewHolder(v);//retorna a View atraves da funcao
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        ImageView imPhoto = holder.itemView.findViewById(R.id.imItem);
+        ImageView imPhoto = holder.itemView.findViewById(R.id.imItem);// preenche o ImageView com a foto correspondente
+
+        //dimensoes que a imagem vai ter na lista
         int w = (int) mainActivity.getResources().getDimension(R.dimen.itemWidth);
         int h = (int) mainActivity.getResources().getDimension(R.dimen.itemHeight);
-        Bitmap bitmap = Util.getBitmap(photos.get(position), w, h);
-        imPhoto.setImageBitmap(bitmap);
+
+        Bitmap bitmap = Util.getBitmap(photos.get(position), w, h);// carrega a imagem em um Bitmap
+        imPhoto.setImageBitmap(bitmap);//seta o bitmap no imageview
         imPhoto.setOnClickListener(new View.OnClickListener() {
+
+            //quando o usuario clica em cima de uma imagem
             @Override
             public void onClick(View v) {
                 mainActivity.startPhotoActivity(photos.get(position));

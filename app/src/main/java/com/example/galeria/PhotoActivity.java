@@ -31,18 +31,20 @@ public class PhotoActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_photo);
 
+        //obtem o caminho da foto que foi enviada via o Intent
         Intent i = getIntent();
         photoPath = i.getStringExtra("photo_path");
 
-        Bitmap bitmap = Util.getBitmap(photoPath);
+        Bitmap bitmap = Util.getBitmap(photoPath);//carrega a foto em um Bitmap
+        //seta bitmap no imageview
         ImageView imPhoto = findViewById(R.id.imPhoto);
         imPhoto.setImageBitmap(bitmap);
 
-        Toolbar toolbar = findViewById(R.id.tbPhoto);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.tbPhoto);//obtem o elemento tbPhoto
+        setSupportActionBar(toolbar);//define tbPhoto como actionbar padrao da tela
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();//obtem da Activity a ActionBar padrão
+        actionBar.setDisplayHomeAsUpEnabled(true);//habilita o botao de voltar na ActionBar
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -50,6 +52,8 @@ public class PhotoActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    //cria inflador de menu que cria opcoes de menu definidas no arquivo de menu passado e as adiciona no menu da Activity
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
         super.onCreateOptionsMenu(menu);
@@ -59,9 +63,10 @@ public class PhotoActivity extends AppCompatActivity {
 
     }
 
+    //metodo executado toda vez que um item da ToolBar for selecionado, se o usuario clique no icone da compartilhamento sera executado o codigo que compartilha a foto
     @Override
     public boolean onOptionsItemSelected (@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.opShare{
+        if (item.getItemId() == R.id.opShare){
                 sharePhoto();
                 return true;
         }
@@ -69,8 +74,8 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     void sharePhoto() {
-        // Codigo para cpmpartiilhar a foto
-        Uri photoUri = FileProvider.getUriForFile(PhotoActivity.this,"trindade.daniel.galeria.fileprovider", new File(photoPath));
+        // Codigo para compartilhar a foto
+        Uri photoUri = FileProvider.getUriForFile(PhotoActivity.this,"com.example.galeria.fileprovider", new File(photoPath));
         Intent i = new Intent(Intent.ACTION_SEND);
         i.putExtra(Intent.EXTRA_STREAM, photoUri);
         i.setType("image/jpeg");

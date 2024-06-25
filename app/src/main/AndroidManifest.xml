@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <provider
-            android:authorities="com.example.galeria"
+            android:authorities="com.example.galeria.fileprovider"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
